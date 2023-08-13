@@ -1,5 +1,4 @@
-// Models represent the data and business logic of your application. They define the structure of the data, interact 
-// with databases or other data sources, and encapsulate the operations you can perform on that data.
+// Models interacts with the DATABASES  
 // Models are responsible for querying, inserting, updating, and deleting data, ensuring data integrity and consistency.
 
 // The Controller handles the logic, the Model manages the data, the Router directs traffic,
@@ -15,6 +14,16 @@ const getAll = async () => {
 };
 
 
+const createTask = async (task) => {
+  const {title} = task;
+  const dateUTC = new Date(Date.now()).toUTCString();
+  const query = 'INSERT INTO tasks(title, status, created_at) VALUES (?, ?, ?)';
+  const [createdTask] = await connection.execute(query, [title, 'pendente', dateUTC]);
+  return {insertId: createdTask.insertId};
+};
+
+
 module.exports = {
-  getAll
+  getAll,
+  createTask
 };

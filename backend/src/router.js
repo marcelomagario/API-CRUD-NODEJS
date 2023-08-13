@@ -7,15 +7,16 @@
 // The "app" ties everything together and sets up the necessary connections and configurations.
 
 const express = require('express');
-
-const tasksController = require('./controllers/tasksController');
-
 const router = express.Router();
 
 
-// router.get('/tasks', (req, res)=> res.status(200).send('The Router is working!'));
+const tasksController = require('./controllers/tasksController');
+const tasksMiddleware = require('./middlewares/tasksMiddleware');
+
+
 
 router.get('/tasks', tasksController.getAll);
+router.post('/tasks',tasksMiddleware.validateBody, tasksController.createTask);
 
 
 module.exports = router;

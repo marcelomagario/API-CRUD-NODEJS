@@ -8,15 +8,12 @@
 // The "app" ties everything together and sets up the necessary connections and configurations.
 
 
-
-
-
-
-
 const express = require('express');
 const router = require('./router');
 
 const app = express();
+
+app.use(express.json());
 
 app.use(router);
 
